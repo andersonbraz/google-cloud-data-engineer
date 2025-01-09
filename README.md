@@ -4,14 +4,10 @@ Neste repositório tenho alguns fragmentos de códigos de estudos com Google Clo
 
 ## Anotações
 
-| Produto                                 | Descrição                          |
-|-----------------------------------------|------------------------------------|
-| [Cloud Storage](notes/cloud-storage.md) | Notas importantes sobre o produto. |
-| [BigQuery](notes/bigquery.md)           | Notas importantes sobre o produto. |
-|                                         |                                    |
-|                                         |                                    |
-
-
+| Produto                                 | Descrição                              |
+|-----------------------------------------|----------------------------------------|
+| [Cloud Storage](notes/cloud-storage.md) | Notas importantes de implementação.    |
+| [BigQuery](notes/bigquery.md)           | Notas importantes de implementação.    |
 
 ## Criar credenciais de acesso
 
