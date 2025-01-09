@@ -11,7 +11,7 @@ def create_dataset_bigquery(project_id, dataset_id):
     dataset.location = "US"
 
     dataset = client.create_dataset(dataset)
-    print(f"Dataset {dataset.dataset_id} criado com sucesso.")
+    print(f"Dataset [{dataset.dataset_id}] criado com sucesso.")
 
 def create_table_bigquery(project_id, dataset_id, table_id, schema):
 
@@ -20,7 +20,7 @@ def create_table_bigquery(project_id, dataset_id, table_id, schema):
     table = bigquery.Table(f"{project_id}.{dataset_id}.{table_id}", schema=schema)
 
     table = client.create_table(table)
-    print(f"Tabela {table.table_id} criada com sucesso.")
+    print(f"Tabela [{table.table_id}] criada com sucesso.")
 
 def load_table_bigquery(project_id, dataset_id, table_id, csv_file):
 
@@ -40,7 +40,8 @@ def load_table_bigquery(project_id, dataset_id, table_id, csv_file):
             job_config=job_config
         )
 
-    job.result() 
+    job.result()
+    print(f"[{dataset_id}.{table_id}] carregado com sucesso.")
 
 def create_bucket(bucket_name):
 
@@ -50,7 +51,7 @@ def create_bucket(bucket_name):
 
     bucket = storage_client.create_bucket(bucket, location=bucket.location)
 
-    print(f"Bucket {bucket.name} criado com sucesso.")
+    print(f"Bucket [{bucket.name}] criado com sucesso.")
 
 def delete_bucket(bucket_name):
 
@@ -63,7 +64,7 @@ def delete_bucket(bucket_name):
         blob.delete()
 
     bucket.delete()
-    print(f"Bucket {bucket_name} deletado com sucesso.")
+    print(f"Bucket [{bucket_name}] deletado com sucesso.")
 
 def list_files(bucket_name):
 
@@ -84,4 +85,4 @@ def create_folder(bucket_name, folder_name):
   blob = bucket.blob(blob_name)
   blob.upload_from_string("")
 
-  print(f"Pasta {folder_name} criada com sucesso no bucket {bucket_name}.")
+  print(f"Pasta [{folder_name}] criada com sucesso no bucket {bucket_name}.")

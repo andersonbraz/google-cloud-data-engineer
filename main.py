@@ -2,6 +2,7 @@ from gcloud import helper as gch
 from dotenv import load_dotenv
 import time
 import os
+from google.cloud import bigquery
 
 load_dotenv("develop.env")
 project_id = os.environ.get("GOOGLE_CLOUD_PROJECT")
@@ -35,9 +36,25 @@ def test_bigquery():
     csv_file = 'data/AdventureWorks_Customers.csv'
     table_id = 'Customers'
 
+    schema = [
+        bigquery.SchemaField("CustomerKey", "INTEGER"),
+        bigquery.SchemaField("Prefix", "STRING"),
+        bigquery.SchemaField("FirstName", "STRING"),
+        bigquery.SchemaField("LastName", "STRING"),
+        bigquery.SchemaField("BirthDate", "DATE"),
+        bigquery.SchemaField("MaritalStatus", "STRING"),
+        bigquery.SchemaField("Gender", "STRING"),
+        bigquery.SchemaField("EmailAddress", "STRING"),
+        bigquery.SchemaField("AnnualIncome", "INTEGER"),
+        bigquery.SchemaField("TotalChildren", "INTEGER"),
+        bigquery.SchemaField("EducationLevel", "STRING"),
+        bigquery.SchemaField("Occupation", "STRING"),
+        bigquery.SchemaField("HomeOwner", "BOOLEAN"),
+    ]
+
     gch.create_dataset_bigquery(project_id, dataset_id)
-    gch.create_table_bigquery(project_id, csv_file, dataset_id, table_id)
-    
+    gch.create_table_bigquery(project_id, dataset_id, table_id, schema)
+    gch.load_table_bigquery(project_id, dataset_id, table_id, csv_file)
 
 if __name__ == '__main__':
 
