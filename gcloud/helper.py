@@ -1,21 +1,20 @@
 from google.cloud import storage
-from google.cloud import compute_v1
 from google.cloud import bigquery
 import google.cloud.exceptions
 
-def create_dataset_bigquery(dataset_id, dataset_name):
+def create_dataset_bigquery(project_id, dataset_id):
     try:
         client = bigquery.Client()
-        dataset = bigquery.Dataset(f"{dataset_id}.{dataset_name}")
+        dataset = bigquery.Dataset(f"{project_id}.{dataset_id}")
 
         dataset.location = "US"
 
         dataset = client.create_dataset(dataset, timeout=30)
-        print(f"Dataset [{dataset.dataset_id}] criado com sucesso.")
+        print(f"Dataset [{dataset_id}] criado com sucesso.")
     except google.cloud.exceptions.Conflict:
-        print(f"Dataset [{dataset_name}] já existe.")
+        print(f"Dataset [{dataset_id}] já existe.")
     except google.cloud.exceptions.GoogleCloudError as e:
-        print(f"Erro ao criar o dataset [{dataset_name}]: {e}")
+        print(f"Erro ao criar o dataset [{dataset_id}]: {e}")
 
 def delete_dataset_bigquery(project_id, dataset_id):
     try:
@@ -44,8 +43,8 @@ def load_table_bigquery(project_id, dataset_id, table_id, csv_file):
 
     job_config = bigquery.LoadJobConfig(
         source_format=bigquery.SourceFormat.CSV,
-        skip_leading_rows=1,  # Pula a primeira linha (cabeçalho)
-        autodetect=True  # Detecta automaticamente o esquema
+        skip_leading_rows=1,
+        autodetect=True  # Detecta Schema
     )
 
     with open(csv_file, "rb") as source_file:
