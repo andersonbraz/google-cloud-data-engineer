@@ -4,6 +4,18 @@ Neste repositório tenho alguns fragmentos de códigos de estudo de interações
 
 **ATENÇÃO: CÓDIGOS EM FASE EMBRIONÁRIA (SEM TRATAMENTO DE EXCEÇÕES E TESTES)**
 
+
+## Anotações
+
+| Produto                                 | Descrição                          |
+|-----------------------------------------|------------------------------------|
+| [Cloud Storage](notes/cloud-storage.md) | Notas importantes sobre o produto. |
+|                                         |                                    |
+|                                         |                                    |
+|                                         |                                    |
+
+
+
 ## Criar credenciais de acesso
 
 ```text
