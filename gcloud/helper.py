@@ -1,17 +1,22 @@
 from google.cloud import storage
 from google.cloud import compute_v1
 from google.cloud import bigquery
+import google.cloud.exceptions
 
-def create_dataset_bigquery(project_id, dataset_id):
+def create_dataset_bigquery(dataset_name):
+    try:
+        client = bigquery.Client()
+        dataset_id = f"{client.project}.{dataset_name}"
+        dataset = bigquery.Dataset(dataset_id)
 
-    client = bigquery.Client(project=project_id)
-    dataset_ref = client.dataset(dataset_id)
+        dataset.location = "US"
 
-    dataset = bigquery.Dataset(dataset_ref)
-    dataset.location = "US"
-
-    dataset = client.create_dataset(dataset)
-    print(f"Dataset [{dataset.dataset_id}] criado com sucesso.")
+        dataset = client.create_dataset(dataset, timeout=30)
+        print(f"Dataset [{dataset.dataset_id}] criado com sucesso.")
+    except google.cloud.exceptions.Conflict:
+        print(f"Dataset [{dataset_name}] já existe.")
+    except google.cloud.exceptions.GoogleCloudError as e:
+        print(f"Erro ao criar o dataset [{dataset_name}]: {e}")
 
 def delete_dataset_bigquery(project_id, dataset_id):
 
@@ -62,35 +67,45 @@ def create_bucket(bucket_name):
     print(f"Bucket [{bucket.name}] criado com sucesso.")
 
 def delete_bucket(bucket_name):
+    try:
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(bucket_name)
+        blobs = bucket.list_blobs()
 
-    storage_client = storage.Client()
-    bucket = storage_client.bucket(bucket_name)
+        for blob in blobs:
+            blob.delete()
 
-    blobs = bucket.list_blobs()
-
-    for blob in blobs:
-        blob.delete()
-
-    bucket.delete()
-    print(f"Bucket [{bucket_name}] deletado com sucesso.")
+        bucket.delete()
+        print(f"Bucket [{bucket_name}] deletado com sucesso.")
+    except google.cloud.exceptions.NotFound:
+        print(f"Bucket [{bucket_name}] não encontrado.")
+    except google.cloud.exceptions.GoogleCloudError as e:
+        print(f"Erro ao deletar o bucket [{bucket_name}]: {e}")
 
 def list_files_bucket(bucket_name):
+    try:
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(bucket_name)
+        blobs = bucket.list_blobs()
 
-    storage_client = storage.Client()
-    bucket = storage_client.bucket(bucket_name)
-    blobs = bucket.list_blobs()
-
-    for blob in blobs:
-        print(blob.name)
-
+        for blob in blobs:
+            print(blob.name)
+    except google.cloud.exceptions.NotFound:
+        print(f"Bucket [{bucket_name}] não encontrado.")
+    except google.cloud.exceptions.GoogleCloudError as e:
+        print(f"Erro ao listar arquivos no bucket [{bucket_name}]: {e}")
 
 def create_folder_bucket(bucket_name, folder_name):
+    try:
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(bucket_name)
+        blob_name = f"{folder_name}/"
 
-  storage_client = storage.Client()
-  bucket = storage_client.bucket(bucket_name)
-  blob_name = f"{folder_name}/"
+        blob = bucket.blob(blob_name)
+        blob.upload_from_string("")
 
-  blob = bucket.blob(blob_name)
-  blob.upload_from_string("")
-
-  print(f"Pasta [{folder_name}] criada com sucesso no bucket {bucket_name}.")
+        print(f"Pasta [{folder_name}] criada com sucesso no bucket {bucket_name}.")
+    except google.cloud.exceptions.NotFound:
+        print(f"Bucket [{bucket_name}] não encontrado.")
+    except google.cloud.exceptions.GoogleCloudError as e:
+        print(f"Erro ao criar pasta [{folder_name}] no bucket [{bucket_name}]: {e}")
