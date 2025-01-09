@@ -1,5 +1,9 @@
 # Google Cloud - Data Engineer
 
+Neste repositório tenho alguns fragmentos de estudos e códigos referente a interações com a Google Cloud Plataform (GCP).
+
+**CÓDIGOS EM FASE EMBRIONÁRIA**
+
 ## Criar credenciais de acesso
 
 ```text
