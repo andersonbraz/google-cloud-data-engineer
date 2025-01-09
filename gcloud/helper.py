@@ -3,11 +3,10 @@ from google.cloud import compute_v1
 from google.cloud import bigquery
 import google.cloud.exceptions
 
-def create_dataset_bigquery(dataset_name):
+def create_dataset_bigquery(dataset_id, dataset_name):
     try:
         client = bigquery.Client()
-        dataset_id = f"{client.project}.{dataset_name}"
-        dataset = bigquery.Dataset(dataset_id)
+        dataset = bigquery.Dataset(f"{dataset_id}.{dataset_name}")
 
         dataset.location = "US"
 
@@ -19,12 +18,16 @@ def create_dataset_bigquery(dataset_name):
         print(f"Erro ao criar o dataset [{dataset_name}]: {e}")
 
 def delete_dataset_bigquery(project_id, dataset_id):
+    try:
+        client = bigquery.Client(project=project_id)
+        dataset_ref = client.dataset(dataset_id)
 
-    client = bigquery.Client(project=project_id)
-    dataset_ref = client.dataset(dataset_id)
-
-    client.delete_dataset(dataset_ref, delete_contents=True)
-    print(f"Dataset [{dataset_id}] excluído com sucesso.")
+        client.delete_dataset(dataset_ref, delete_contents=True)
+        print(f"Dataset [{dataset_id}] excluído com sucesso.")
+    except google.cloud.exceptions.NotFound:
+        print(f"Dataset [{dataset_id}] não encontrado.")
+    except google.cloud.exceptions.GoogleCloudError as e:
+        print(f"Erro ao deletar o dataset [{dataset_id}]: {e}")
 
 def create_table_bigquery(project_id, dataset_id, table_id, schema):
 
