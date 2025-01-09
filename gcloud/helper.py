@@ -59,14 +59,17 @@ def load_table_bigquery(project_id, dataset_id, table_id, csv_file):
     print(f"[{dataset_id}.{table_id}] carregado com sucesso.")
 
 def create_bucket(bucket_name):
+    try:
+        storage_client = storage.Client()
+        bucket = storage_client.bucket(bucket_name)
+        bucket.location = "US"
 
-    storage_client = storage.Client()
-    bucket = storage_client.bucket(bucket_name)
-    bucket.location = "US"
-
-    bucket = storage_client.create_bucket(bucket, location=bucket.location)
-
-    print(f"Bucket [{bucket.name}] criado com sucesso.")
+        bucket = storage_client.create_bucket(bucket, location=bucket.location)
+        print(f"Bucket [{bucket.name}] criado com sucesso.")
+    except google.cloud.exceptions.Conflict:
+        print(f"Bucket [{bucket_name}] já existe.")
+    except google.cloud.exceptions.GoogleCloudError as e:
+        print(f"Erro ao criar o bucket [{bucket_name}]: {e}")
 
 def delete_bucket(bucket_name):
     try:
