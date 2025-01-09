@@ -39,6 +39,7 @@ export GOOGLE_APPLICATION_CREDENTIALS=~/.credentials/gcloud/credentials.json
 pip install google-cloud-storage
 pip install google-cloud-compute
 pip install google-cloud-bigquery
+pip install python-dotenv
 ```
 
 ## Executar código
