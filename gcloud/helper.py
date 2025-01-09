@@ -2,7 +2,7 @@ from google.cloud import storage
 from google.cloud import compute_v1
 from google.cloud import bigquery
 
-def create_dataset(project_id, dataset_id):
+def create_dataset_bigquery(project_id, dataset_id):
 
     client = bigquery.Client(project=project_id)
     dataset_ref = client.dataset(dataset_id)
@@ -13,19 +13,10 @@ def create_dataset(project_id, dataset_id):
     dataset = client.create_dataset(dataset)
     print(f"Dataset {dataset.dataset_id} criado com sucesso.")
 
-def load_csv_to_bigquery(project_id, dataset_id, table_id, csv_file):
-    """Carrega um arquivo CSV para uma tabela no BigQuery.
-
-    Args:
-        project_id (str): O ID do seu projeto no Google Cloud.
-        dataset_id (str): O ID do dataset.
-        table_id (str): O ID da tabela.
-        csv_file (str): O caminho completo para o arquivo CSV.
-    """
+def create_table_bigquery(project_id, dataset_id, table_id, csv_file):
 
     client = bigquery.Client(project=project_id)
 
-    # Construindo o job de carregamento
     job_config = bigquery.LoadJobConfig(
         source_format=bigquery.SourceFormat.CSV,
         skip_leading_rows=1,  # Pula a primeira linha (cabeçalho)
@@ -36,9 +27,9 @@ def load_csv_to_bigquery(project_id, dataset_id, table_id, csv_file):
         job = client.load_table_from_file(
             source_file,
             f"{project_id}.{dataset_id}.{table_id}",
-            location="US",  # Substitua pela localização do seu dataset
+            location="US",
             job_config=job_config
-        )  # API request
+        )
 
     job.result() 
 

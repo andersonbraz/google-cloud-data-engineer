@@ -32,16 +32,11 @@ def test_storage():
 def test_bigquery():
 
     dataset_id = 'data_users'
-
-    gch.create_dataset(project_id, dataset_id)
-
-def test_load_csv_to_bigquery():
-    
     csv_file = 'data/users.csv'
-    dataset_id = 'data_users'
     table_id = 'users'
 
-    gch.load_csv_to_bigquery(project_id, csv_file, dataset_id, table_id)
+    gch.create_dataset_bigquery(project_id, dataset_id)
+    gch.create_table_bigquery(project_id, csv_file, dataset_id, table_id)
     
 
 if __name__ == '__main__':
