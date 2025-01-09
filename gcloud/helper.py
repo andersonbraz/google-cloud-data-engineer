@@ -13,6 +13,14 @@ def create_dataset_bigquery(project_id, dataset_id):
     dataset = client.create_dataset(dataset)
     print(f"Dataset [{dataset.dataset_id}] criado com sucesso.")
 
+def delete_dataset_bigquery(project_id, dataset_id):
+
+    client = bigquery.Client(project=project_id)
+    dataset_ref = client.dataset(dataset_id)
+
+    client.delete_dataset(dataset_ref, delete_contents=True)
+    print(f"Dataset [{dataset_id}] excluído com sucesso.")
+
 def create_table_bigquery(project_id, dataset_id, table_id, schema):
 
     client = bigquery.Client(project=project_id)
