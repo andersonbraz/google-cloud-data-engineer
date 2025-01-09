@@ -7,7 +7,7 @@ from google.cloud import bigquery
 load_dotenv("develop.env")
 project_id = os.environ.get("GOOGLE_CLOUD_PROJECT")
 
-def test_storage():
+def explore_storage():
 
     bucket_name = 'bucket_andersonbraz'
 
@@ -30,7 +30,7 @@ def test_storage():
 
     gch.delete_bucket(bucket_name)
 
-def test_bigquery():
+def explore_bigquery():
 
     dataset_id = 'AdventureWorks'
     csv_file = 'data/AdventureWorks_Customers.csv'
@@ -61,5 +61,6 @@ def test_bigquery():
     gch.delete_dataset_bigquery(project_id, dataset_id)
 
 if __name__ == '__main__':
-
-    test_bigquery()
+    
+    # explore_storage()
+    explore_bigquery()
