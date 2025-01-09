@@ -2,7 +2,7 @@
 
 Neste repositório tenho alguns fragmentos de estudos e códigos referente a interações com a Google Cloud Plataform (GCP).
 
-**ATENÇÃO: CÓDIGOS EM FASE EMBRIONÁRIA**
+**ATENÇÃO: CÓDIGOS EM FASE EMBRIONÁRIA (SEM TRATAMENTO DE EXCEÇÕES E TESTES)**
 
 ## Criar credenciais de acesso
 
