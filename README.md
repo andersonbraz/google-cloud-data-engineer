@@ -10,7 +10,7 @@ Neste repositório tenho alguns fragmentos de códigos de estudo de interações
 | Produto                                 | Descrição                          |
 |-----------------------------------------|------------------------------------|
 | [Cloud Storage](notes/cloud-storage.md) | Notas importantes sobre o produto. |
-|                                         |                                    |
+| [BigQuery](notes/bigquery.md)           | Notas importantes sobre o produto. |
 |                                         |                                    |
 |                                         |                                    |
 
