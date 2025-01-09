@@ -74,7 +74,7 @@ def delete_bucket(bucket_name):
     bucket.delete()
     print(f"Bucket [{bucket_name}] deletado com sucesso.")
 
-def list_files(bucket_name):
+def list_files_bucket(bucket_name):
 
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
@@ -84,7 +84,7 @@ def list_files(bucket_name):
         print(blob.name)
 
 
-def create_folder(bucket_name, folder_name):
+def create_folder_bucket(bucket_name, folder_name):
 
   storage_client = storage.Client()
   bucket = storage_client.bucket(bucket_name)
