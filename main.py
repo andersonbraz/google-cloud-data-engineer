@@ -31,9 +31,9 @@ def test_storage():
 
 def test_bigquery():
 
-    dataset_id = 'data_users'
-    csv_file = 'data/users.csv'
-    table_id = 'users'
+    dataset_id = 'AdventureWorks'
+    csv_file = 'data/AdventureWorks_Customers.csv'
+    table_id = 'Customers'
 
     gch.create_dataset_bigquery(project_id, dataset_id)
     gch.create_table_bigquery(project_id, csv_file, dataset_id, table_id)
