@@ -13,7 +13,16 @@ def create_dataset_bigquery(project_id, dataset_id):
     dataset = client.create_dataset(dataset)
     print(f"Dataset {dataset.dataset_id} criado com sucesso.")
 
-def create_table_bigquery(project_id, dataset_id, table_id, csv_file):
+def create_table_bigquery(project_id, dataset_id, table_id, schema):
+
+    client = bigquery.Client(project=project_id)
+
+    table = bigquery.Table(f"{project_id}.{dataset_id}.{table_id}", schema=schema)
+
+    table = client.create_table(table)
+    print(f"Tabela {table.table_id} criada com sucesso.")
+
+def load_table_bigquery(project_id, dataset_id, table_id, csv_file):
 
     client = bigquery.Client(project=project_id)
 

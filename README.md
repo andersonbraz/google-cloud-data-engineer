@@ -37,3 +37,7 @@ pip install google-cloud-bigquery
 ```shell
 python main.py
 ```
+
+## Fontes de Dados
+
+- **AdventureWorks_Customers.csv:** https://www.kaggle.com/datasets/ukveteran/adventure-works?resource=download&select=AdventureWorks_Customers.csv
