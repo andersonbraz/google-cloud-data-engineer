@@ -11,7 +11,7 @@ Neste repositório tenho alguns fragmentos de códigos de estudo de interações
 2. Selecione "API e serviços"
 3. Selecionar a conta de serviço desejada
 4. Selecionar a aba de opção "CHAVES"
-5. No botão "ADICIONAR CHAVE" selcionar a opção "Criar nova chave"
+5. No botão "ADICIONAR CHAVE" selecionar a opção "Criar nova chave"
 6. Baixar o arquivo JSON com dados da credencial 
 ```
 
