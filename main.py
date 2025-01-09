@@ -53,12 +53,12 @@ def explore_bigquery():
     ]
 
     gch.create_dataset_bigquery(project_id, dataset_id)
-    # gch.create_table_bigquery(project_id, dataset_id, table_id, schema)
-    # gch.load_table_bigquery(project_id, dataset_id, table_id, csv_file)
-    # time.sleep(30)
+    gch.create_table_bigquery(project_id, dataset_id, table_id, schema)
+    gch.load_table_bigquery(project_id, dataset_id, table_id, csv_file)
+    time.sleep(30)
     gch.delete_dataset_bigquery(project_id, dataset_id)
 
 if __name__ == '__main__':
     
-    # explore_storage()
+    explore_storage()
     explore_bigquery()
