@@ -28,6 +28,8 @@ export GOOGLE_APPLICATION_CREDENTIALS=~/.credentials/gcloud/credentials.json
 
 ```shell
 pip install google-cloud-storage
+pip install google-cloud-compute
+pip install google-cloud-bigquery
 ```
 
 ## Executar código
