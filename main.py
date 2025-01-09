@@ -1,19 +1,24 @@
 from google.cloud import storage
-from google.cloud.storage import storage_class
 
-def criar_bucket(nome_do_bucket, localizacao="US", classe_armazenamento=storage_class.Standard):
-    """Cria um novo bucket no Google Cloud Storage com localização e classe de armazenamento."""
-    try:
-        storage_client = storage.Client()
-        bucket = storage_client.create_bucket(nome_do_bucket, location=localizacao, storage_class=classe_armazenamento)
-        print(f"Bucket {bucket.name} criado em {bucket.location} com classe de armazenamento {bucket.storage_class}.")
-        return bucket
-    except Exception as e:
-        print(f"Erro ao criar o bucket: {e}")
-        return None
+def listar_arquivos_bucket(bucket_name):
+    """Lista todos os arquivos em um bucket do Cloud Storage.
 
-nome_do_bucket = "sample_andersonbraz"
-bucket_criado = criar_bucket(nome_do_bucket, "US-CENTRAL1", storage_class.Nearline)
+    Args:
+        bucket_name (str): Nome do bucket.
+    """
 
-if bucket_criado:
-    print(f"Informações do bucket criado: {bucket_criado}")
+    # Cria um cliente para interagir com o Cloud Storage
+    storage_client = storage.Client()
+
+    # Obtém o bucket
+    bucket = storage_client.bucket(bucket_name)
+
+    # Lista os blobs (arquivos) no bucket
+    blobs = bucket.list_blobs()
+
+    for blob in blobs:
+        print(blob.name)
+
+# Exemplo de uso:
+bucket_name = 'bucket_andersonbraz'  # Substitua pelo nome do seu bucket
+listar_arquivos_bucket(bucket_name)
