@@ -1,24 +1,24 @@
-from google.cloud import storage
+from gcloud import helper as gh
+import time
 
-def listar_arquivos_bucket(bucket_name):
-    """Lista todos os arquivos em um bucket do Cloud Storage.
 
-    Args:
-        bucket_name (str): Nome do bucket.
-    """
 
-    # Cria um cliente para interagir com o Cloud Storage
-    storage_client = storage.Client()
+bucket_name = 'bucket_andersonbraz'
 
-    # Obtém o bucket
-    bucket = storage_client.bucket(bucket_name)
+gh.create_bucket(bucket_name)
 
-    # Lista os blobs (arquivos) no bucket
-    blobs = bucket.list_blobs()
+print("First list of files ::::::::::::::::::::")
+gh.list_files(bucket_name)
 
-    for blob in blobs:
-        print(blob.name)
+gh.create_folder(bucket_name, '2020')
+gh.create_folder(bucket_name, '2021')
+gh.create_folder(bucket_name, '2022')
+gh.create_folder(bucket_name, '2023')
+gh.create_folder(bucket_name, '2024')
+gh.create_folder(bucket_name, '2025')
 
-# Exemplo de uso:
-bucket_name = 'bucket_andersonbraz'  # Substitua pelo nome do seu bucket
-listar_arquivos_bucket(bucket_name)
+print("Last list of files ::::::::::::::::::::")
+gh.list_files(bucket_name)
+
+time.sleep(60)
+gh.delete_bucket(bucket_name)
