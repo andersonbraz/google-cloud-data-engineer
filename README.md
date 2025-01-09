@@ -11,7 +11,7 @@
 6. Baixar o arquivo JSON com dados da credencial 
 ```
 
-## Guardar arquivo de cedencial
+## Guardar arquivo de credencial
 
 ```shell
 mkdir ~/.credentials/gcloud/
