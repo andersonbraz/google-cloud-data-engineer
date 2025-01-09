@@ -7,7 +7,15 @@
 2. Selecione "API e serviços"
 3. Selecionar a conta de serviço desejada
 4. Selecionar a aba de opção "CHAVES"
-5. No botão "ADICIONAR CHAVE" selcionar a opção "Criair nova chave"
+5. No botão "ADICIONAR CHAVE" selcionar a opção "Criar nova chave"
+6. Baixar o arquivo JSON com dados da credencial 
+```
+
+## Guardar arquivo de cedencial
+
+```shell
+mkdir ~/.credentials/gcloud/
+cp ~/Downloads/credentials.json ~/.credentials/gcloud/
 ```
 
 ## Criar variável de ambiente
@@ -20,4 +28,10 @@ export GOOGLE_APPLICATION_CREDENTIALS=~/.credentials/gcloud/credentials.json
 
 ```shell
 pip install google-cloud-storage
+```
+
+## Executar código
+
+```shell
+python main.py
 ```
