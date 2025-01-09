@@ -1,9 +1,6 @@
 # Google Cloud - Data Engineer
 
-Neste repositório tenho alguns fragmentos de códigos de estudo de interações com a Google Cloud Plataform (GCP).
-
-**ATENÇÃO: CÓDIGOS EM FASE EMBRIONÁRIA (SEM TRATAMENTO DE EXCEÇÕES E TESTES)**
-
+Neste repositório tenho alguns fragmentos de códigos de estudos com Google Cloud Plataform (GCP).
 
 ## Anotações
 
