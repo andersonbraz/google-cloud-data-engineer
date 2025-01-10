@@ -13,9 +13,9 @@ def create_topic_pubsub(project_id, topic_name):
         topic = publisher.create_topic(request={"name": topic_path})
         print(f"Tópico criado: {topic.name}")
     except google.cloud.exceptions.Conflict:
-        print(f"Tópico [{topic_name}] já existe.")
+        print(f"Tópico [{topic_path}] já existe.")
     except google.cloud.exceptions.GoogleCloudError as e:
-        print(f"Erro ao criar o tópico [{topic_name}]: {e}")
+        print(f"Erro ao criar o tópico [{topic_path}]: {e}")
 
 def publish_message_pubsub(project_id, topic_name, message):
 
