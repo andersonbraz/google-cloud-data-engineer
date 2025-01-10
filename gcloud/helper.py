@@ -1,6 +1,71 @@
+import json
 from google.cloud import storage
 from google.cloud import bigquery
+from google.cloud import pubsub
 import google.cloud.exceptions
+
+def create_topic_pubsub(project_id, topic_name):
+
+    publisher = pubsub.PublisherClient()
+    topic_path = publisher.topic_path(project_id, topic_name)
+
+    try:
+        topic = publisher.create_topic(request={"name": topic_path})
+        print(f"Tópico criado: {topic.name}")
+    except google.cloud.exceptions.Conflict:
+        print(f"Tópico [{topic_name}] já existe.")
+    except google.cloud.exceptions.GoogleCloudError as e:
+        print(f"Erro ao criar o tópico [{topic_name}]: {e}")
+
+def publish_message_pubsub(project_id, topic_name, message):
+
+    publisher = pubsub.PublisherClient()
+    topic_path = publisher.topic_path(project_id, topic_name)
+    data = message.encode('utf-8')
+
+    try:
+        future = publisher.publish(topic_path, data)
+        message_id = future.result()
+        print(f"Mensagem publicada com sucesso! ID da mensagem: {message_id}")
+    except Exception as e:
+        print(f"Erro ao publicar a mensagem: {e}")
+
+
+def create_subscription_pubsub(project_id, topic_name, subscription_name):
+
+    publisher = pubsub.PublisherClient()
+    subscriber = pubsub.SubscriberClient()
+    subscription_path = subscriber.subscription_path(project_id, subscription_name)
+    topic_path = publisher.topic_path(project_id, topic_name)
+
+    try:
+        subscription = subscriber.create_subscription(
+            name=subscription_path, topic=topic_path
+        )
+        print(f"Assinatura criada: {subscription.name}")
+    except google.cloud.exceptions.Conflict:
+        print(f"Assinante [{subscription_path}] já existe.")
+    except google.cloud.exceptions.GoogleCloudError as e:
+        print(f"Erro ao criar o assinante [{subscription_path}]: {e}")
+
+def receive_messages_pubsub(project_id, subscription_name):
+
+    subscriber = pubsub.SubscriberClient()
+    subscription_path = subscriber.subscription_path(project_id, subscription_name)
+
+    def callback(message):
+        print(f"Received message: {message.data}")
+        message.ack()  # Confirma o recebimento da mensagem
+
+    streaming_pull_future = subscriber.subscribe(subscription_path, callback=callback)
+    print(f"Listening for messages on {subscription_path}...")
+
+    try:
+        streaming_pull_future.result(timeout=None)
+    except KeyboardInterrupt:
+        streaming_pull_future.cancel()
+
+    print("Listening stopped.")
 
 def create_dataset_bigquery(project_id, dataset_id):
     try:

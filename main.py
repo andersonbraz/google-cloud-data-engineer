@@ -1,3 +1,5 @@
+from google.cloud.pubsub_v1.types import message
+
 from gcloud import helper as gch
 from dotenv import load_dotenv
 import time
@@ -58,7 +60,20 @@ def explore_bigquery():
     time.sleep(30)
     gch.delete_dataset_bigquery(project_id, dataset_id)
 
+def explore_pubsub():
+
+    topic_name = "application_faker"
+    subscription_name = "consumer_faker"
+
+    gch.create_topic_pubsub(project_id, topic_name)
+    gch.create_subscription_pubsub(project_id, topic_name, subscription_name)
+    messages = ["ALPHA", "BETA", "CHARLIE", "DELTA", "ECHO", "FOX", "GOLF"]
+
+    for m in messages:
+        gch.publish_message_pubsub(project_id, topic_name, str(m))
+
 if __name__ == '__main__':
     
-    explore_storage()
-    explore_bigquery()
+    # explore_storage()
+    # explore_bigquery()
+    explore_pubsub()
