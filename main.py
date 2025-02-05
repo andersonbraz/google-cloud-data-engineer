@@ -65,8 +65,8 @@ def explore_pubsub():
     topic_name = "application_sample"
     subscription_name = "application_sample-sub"
 
-    # gch.create_topic_pubsub(project_id, topic_name)
-    # gch.create_subscription_pubsub(project_id, topic_name, subscription_name)
+    gch.create_topic_pubsub(project_id, topic_name)
+    gch.create_subscription_pubsub(project_id, topic_name, subscription_name)
     messages = ["ALPHA", "BETA", "CHARLIE", "DELTA", "ECHO", "FOX", "GOLF"]
 
     for m in messages:
@@ -74,6 +74,6 @@ def explore_pubsub():
 
 if __name__ == '__main__':
     
-    # explore_storage()
-    # explore_bigquery()
+    explore_storage()
+    explore_bigquery()
     explore_pubsub()
